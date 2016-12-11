@@ -30,14 +30,8 @@ public class Client implements Runnable {
 				if(task != null){
 					ss.compare(task.getS(), task.getT(), task.getAlgorithm(), outqueue.get(task.getJobNumber()));
 					
-					// For the illusion of an asynchronous system, I put the thread to sleep for 5 seconds before checking if the process is finished
-					// The RMI Server side also puts the thread to sleep for 5 seconds before going to try and process it
-					do{
-						System.out.println("Result not yet processed in thread, going to sleep for 5 seconds");
-						Thread.sleep(5000);
-					}while (!outqueue.get(task.getJobNumber()).isProcessed());
-					
-					System.out.println("Task processed");
+					// For the illusion of an asynchronous system, I put the thread to sleep for 5 seconds before looking for a new Task in the queue
+					Thread.sleep(5000);
 				}
 			} catch(Exception e){
 				e.printStackTrace();
